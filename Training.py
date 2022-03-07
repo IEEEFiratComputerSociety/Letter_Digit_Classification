@@ -1,6 +1,5 @@
 import pandas as pd
 import numpy as np
-import gzip
 import matplotlib.pyplot as plt
 
 maps = pd.read_csv('data/emnist-balanced-mapping.txt', delimiter=' ', header=None, index_col=0)
