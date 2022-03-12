@@ -4,14 +4,17 @@ import cv2 as cv
 image_path = ''
 
 
-def preprocess(image):
-    # Resmi BGR renk tonlamasından siyah beyaza çeviriyoruz
-    image = cv.cvtColor(image,cv.COLOR_BGR2GRAY)
+def preprocess(file):
+    # girdi olarak bir DataFrame alır
     
-    # Resmi sınıflandırma algoritmamızın girdi boyutu olan (28x28) boyutlarına getiriyoruz
-    image = cv.resize(image,(28,28))
+    # bağımlı ve bağımsız değişkenleri ayırıyoruz
+    X = file.iloc[:,1:].values
+    Y = file.iloc[:,:1].values
     
-    # Sınıflandırma algoritmamız girdi olarak bir vertör aldığı için resmi vektör haline getiriyoruz
-    image = image.reshape(784)
+    # to_categorical ile her sınıf için ayrı sınıflandırma sütunu oluşturuyoruz
+    Y = to_categorical(Y,num_classes=47)
     
-    return image
+    # model için değerleri normalize ediyoruz
+    X = X / 255.0
+    
+    return X,Y
