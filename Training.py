@@ -1,3 +1,4 @@
+import keras.utils
 import pandas as pd
 import numpy as np
 import matplotlib.pyplot as plt
@@ -24,6 +25,40 @@ print(f'{emnist_train_x.shape}\n{emnist_train_y.shape}\n{emnist_test_x.shape}\n{
 # %%
 def map_to_letter(number, map_file=maps):
     return map_file.loc[number, 1]
+
+
+def cnn2d():
+    """
+
+    :return:
+    """
+    pass
+
+
+def cnn1d_1layer():
+    """
+
+    :return:
+    """
+    pass
+
+
+def cnn1d_2layer():
+    """
+
+    :return:
+    """
+    pass
+
+
+def cnn1d_3layer():
+    """
+
+    :return:
+    """
+    pass
+
+# %%
 
 # print(chr(map_to_letter(39)))
 
