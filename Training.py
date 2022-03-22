@@ -40,12 +40,12 @@ def cnn2d():
     test_X = []
     
     for i in range(emnist_train_x.shape[0]):
-        a = np.resize(x_train[i],(28,28))
+        a = np.resize(emnist_train_x[i],(28,28))
         a = np.transpose(a)
         train_X.append(a)
 
     for i in range(emnist_test_x.shape[0]):
-        a = np.resize(x_test[i],(28,28))
+        a = np.resize(emnist_test_x[i],(28,28))
         a = np.transpose(a)
         test_X.append(a)
         
@@ -86,7 +86,7 @@ def cnn2d():
 
     model.compile(loss="categorical_crossentropy", optimizer="adam", metrics=["accuracy"])
 
-    model.fit(x_train, y_train, batch_size=batch_size, epochs=epochs, validation_split=0.1)
+    model.fit(x_train, emnist_train_y, batch_size=batch_size, epochs=epochs, validation_split=0.1)
     
     open("harf_siniflandirma_emnist_model.json","w").write(model.to_json())# modeli kaydetmek için kullanılır
     model.save_weights("harf_sinif_emnist.h5")
