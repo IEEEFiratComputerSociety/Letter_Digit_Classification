@@ -28,9 +28,40 @@ def model_output_plot():
     pass
 
 
-def prediction_bar_plot(prediction_array, save=False, save_path='data/prediction_bar_plot'):
+import pandas as pd
+from matplotlib import pyplot as plt
+import numpy as np
+import matplotlib.pyplot as plt; plt.rcdefaults()
+import ascii
+def prediction_bar_plot(save=False, save_path='data/prediction_bar_plot'):
 
-    pass
+    
+    data=pd.read_csv(r"ASCII DONUSTURLECEK VERİLER.csv")
+    data.head()
+    
+    liste=[48,49,50,51,52,53,54,55,56,57,65,66,67,68,69,70,71,72
+    ,73,74,75,76,77,78,79,80,81,82,83,84,
+    85,86,87,88,89,90,97,98,100,101,102,103,104,110,
+    113,114,
+    116] # direkt data frame olarak ascıı tabloya donuşturulemedi burayı konuşalım tekrar.
+    array=[]
+    for i in liste:
+        print(chr(i)) #listedeki değerlerin ASCII karşılıkları verildi.
+        array.append(chr(i))
+    
+    plt.title("Letter Detection") #başlık ekledik
+    x=(array)
+    y=(len(array))
+    plt.bar(x,y,color="purple",alpha=0.7,label="line",width=0.7)
+    plt.xlabel("Letters and Numbers")
+    plt.ylabel("Prediction Result")
+    
+    plt.show()
+
+
+
+
+prediction_bar_plot()
 
 
 def be_sure_file_exist(path):
