@@ -32,8 +32,7 @@ def model_output_plot():
 def prediction_bar_plot(save=False, save_path='data/prediction_bar_plot'):
 
     
-    data=pd.read_csv(r"ASCII DONUSTURLECEK VERİLER.csv")
-    data.head()
+   
     
     liste=[48,49,50,51,52,53,54,55,56,57,65,66,67,68,69,70,71,72
     ,73,74,75,76,77,78,79,80,81,82,83,84,
