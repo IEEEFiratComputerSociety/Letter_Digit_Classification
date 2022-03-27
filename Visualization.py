@@ -29,7 +29,7 @@ def model_output_plot():
 
 
 
-def prediction_bar_plot(save=False, save_path='data/prediction_bar_plot'):
+def prediction_bar_plot(prediction_data,save=False, save_path='data/prediction_bar_plot'):
 
     
    
