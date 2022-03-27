@@ -30,10 +30,9 @@ def model_output_plot():
 
 
 def prediction_bar_plot(prediction_data,save=False, save_path='data/prediction_bar_plot'):
-
-    
-   
-    
+    def map_to_letter(number, map_file=maps):
+        return map_file.loc[number, 1]
+    """
     liste=[48,49,50,51,52,53,54,55,56,57,65,66,67,68,69,70,71,72
     ,73,74,75,76,77,78,79,80,81,82,83,84,
     85,86,87,88,89,90,97,98,100,101,102,103,104,110,
@@ -42,7 +41,7 @@ def prediction_bar_plot(prediction_data,save=False, save_path='data/prediction_b
     array=[]
     for i in liste:
         print(chr(i)) #listedeki değerlerin ASCII karşılıkları verildi.
-        array.append(chr(i))
+        array.append(chr(i))"""
     
     plt.title("Letter Detection") #başlık ekledik
     x=(array)
