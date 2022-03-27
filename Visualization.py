@@ -28,11 +28,7 @@ def model_output_plot():
     pass
 
 
-import pandas as pd
-from matplotlib import pyplot as plt
-import numpy as np
-import matplotlib.pyplot as plt; plt.rcdefaults()
-import ascii
+
 def prediction_bar_plot(save=False, save_path='data/prediction_bar_plot'):
 
     
