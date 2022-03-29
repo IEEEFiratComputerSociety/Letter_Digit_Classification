@@ -1,15 +1,15 @@
 import os
 
-import cv2
-from PIL import Image, ImageOps
-import pandas as pd
-import numpy as np
 import matplotlib.pyplot as plt
+import numpy as np
+from PIL import Image, ImageOps
+
+import Training
 
 
 def show_image(image_array, save=False, save_path='data/csv_to_image', name_of_image='show_image', image_type='.png'):
     checked_array = be_sure_2d(image_array)
-    checked_array = checked_array*255
+    checked_array = checked_array * 255
     checked_array = checked_array.astype(int)
     checked_array = np.transpose(checked_array, (1, 0))
     plt.subplot()
@@ -24,38 +24,48 @@ def show_image(image_array, save=False, save_path='data/csv_to_image', name_of_i
         data.save(path)
 
 
-def model_output_plot():
+# def show_images(image_data, labels, number_of_image=10, save=False, save_path='data/csv_to_image',
+#                 name_of_image='show_image', image_type='.png'):
+#     temp_data = pd.DataFrame()
+#     plt.subplot(48, name_of_image)
+#     i, j = 0, 0
+#     for group in range(48):
+#         condition = labels == i
+#         temp_data.append(image_data[condition].sample(n=number_of_image))
+#         i += 1 if group
+#         plt.subplot(48, name_of_image, )
+
+
+def conf_matrix():
     pass
 
 
+def training_plot():
+    pass
 
-def prediction_bar_plot(prediction_data,save=False, save_path='data/prediction_bar_plot'):
-    def map_to_letter(number, map_file=maps):
-        return map_file.loc[number, 1]
+
+def prediction_bar_plot(prediction_data, save=False, save_path='data/prediction_bar_plot'):
     """
     liste=[48,49,50,51,52,53,54,55,56,57,65,66,67,68,69,70,71,72
     ,73,74,75,76,77,78,79,80,81,82,83,84,
     85,86,87,88,89,90,97,98,100,101,102,103,104,110,
     113,114,
     116] # direkt data frame olarak ascıı tabloya donuşturulemedi burayı konuşalım tekrar.
-    array=[]
+
     for i in liste:
         print(chr(i)) #listedeki değerlerin ASCII karşılıkları verildi.
         array.append(chr(i))"""
-    
-    plt.title("Letter Detection") #başlık ekledik
-    x=(array)
-    y=(len(array))
-    plt.bar(x,y,color="purple",alpha=0.7,label="line",width=0.7)
+    array = []
+    for i in range(47):
+        array.append(chr(Training.map_to_letter(i)))
+    plt.title("Letter Detection")  # başlık ekledik
+    x = (array)
+    y = (len(array))
+    plt.bar(x, y, color="purple", alpha=0.7, label="line", width=0.7)
     plt.xlabel("Letters and Numbers")
     plt.ylabel("Prediction Result")
-    
+
     plt.show()
-
-
-
-
-prediction_bar_plot()
 
 
 def be_sure_file_exist(path):
@@ -72,4 +82,3 @@ def be_sure_2d(image_array):
         return image_array.reshape([28, 28])
     else:
         return image_array
-
