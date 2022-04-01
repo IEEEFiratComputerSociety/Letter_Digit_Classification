@@ -12,7 +12,7 @@ print(f'Shape of emnist_train: {emnist_train.shape}\nShape of emnist_train: {emn
 
 
 # %%
-def preprocess(file):
+def preprocess(file=emnist_test):
     # girdi olarak bir DataFrame alır
 
     # bağımlı ve bağımsız değişkenleri ayırıyoruz
