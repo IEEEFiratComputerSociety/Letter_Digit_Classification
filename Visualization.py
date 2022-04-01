@@ -36,8 +36,32 @@ def show_image(image_array, save=False, save_path='data/csv_to_image', name_of_i
 #         plt.subplot(48, name_of_image, )
 
 
-def conf_matrix():
-    pass
+def conf_matrix(model):
+    '''
+    Eğitilmiş modeli parametre olarak veriyoruz
+    '''
+    
+    _,Y = Training.preprocess()
+    
+    # test setinden tahmin et
+    y_pred = model.predict(Y)
+    
+    # tahmin edilen veriyi çevir
+    y_pred_class = np.argmax(y_pred,axis=1)
+    
+    # test verisi çevir
+    y_true = np.argmax(Y,axis=1)
+    
+    # karışıklık matrisi hesaplama
+    confusion_mtx = confusion_matrix(y_true,y_pred_class)
+    
+    # karşıklık matrisi çizdir
+    f, ax = plt.subplots(figsize=(15,15))
+    sns.heatmap(confusion_mtx, annot=True, linewidths=0.01, cmap="Greens",linecolor="gray",fmt=".1f",ax=ax)
+    plt.xlabel("tahmin edilen etiket")
+    plt.ylabel("Gerçek etiket")
+    plt.title("confusion matrix")
+    plt.show()
 
 
 def training_plot():
