@@ -2,7 +2,7 @@ import numpy as np
 import pandas as pd
 from tensorflow import keras
 from tensorflow.keras import layers
-from tensorflow.keras.utils import to_categorical
+import HelperFunctions
 
 emnist_train = pd.read_csv('data/emnist-balanced-train.csv')
 emnist_test = pd.read_csv('data/emnist-balanced-test.csv')
@@ -11,24 +11,11 @@ print(f'Shape of emnist_train: {emnist_train.shape}\nShape of emnist_test: {emni
 
 
 # %%
-def preprocess(file=emnist_test):
-    # girdi olarak bir DataFrame alır
-
-    # bağımlı ve bağımsız değişkenleri ayırıyoruz
-    X = file.iloc[:, 1:].values
-    Y = file.iloc[:, :1].values
-
-    # to_categorical ile her sınıf için ayrı sınıflandırma sütunu oluşturuyoruz
-    Y = to_categorical(Y, num_classes=47)
-
-    # model için değerleri normalize ediyoruz
-    X = X / 255.0
-
-    return X, Y
 
 
-emnist_train_x, emnist_train_y = preprocess(emnist_train)
-emnist_test_x, emnist_test_y = preprocess(emnist_test)
+
+emnist_train_x, emnist_train_y = HelperFunctions.preprocess(emnist_train)
+emnist_test_x, emnist_test_y = HelperFunctions.preprocess(emnist_test)
 del emnist_train
 del emnist_test
 
