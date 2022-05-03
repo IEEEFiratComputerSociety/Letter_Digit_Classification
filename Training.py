@@ -4,11 +4,10 @@ from tensorflow import keras
 from tensorflow.keras import layers
 from tensorflow.keras.utils import to_categorical
 
-maps = pd.read_csv('data/emnist-balanced-mapping.txt', delimiter=' ', header=None, index_col=0)
 emnist_train = pd.read_csv('data/emnist-balanced-train.csv')
 emnist_test = pd.read_csv('data/emnist-balanced-test.csv')
 
-print(f'Shape of emnist_train: {emnist_train.shape}\nShape of emnist_train: {emnist_test.shape}')
+print(f'Shape of emnist_train: {emnist_train.shape}\nShape of emnist_test: {emnist_test.shape}')
 
 
 # %%
@@ -37,12 +36,6 @@ print(f'{emnist_train_x.shape}\n{emnist_train_y.shape}\n{emnist_test_x.shape}\n{
 
 
 # %%
-def map_to_letter(number, map_file=maps):
-    return map_file.loc[number, 1]
-
-
-def convert_1d_to_2d():
-    pass
 
 
 def cnn2d():
@@ -97,8 +90,7 @@ def cnn2d():
 
     model.fit(x_train, emnist_train_y, batch_size=batch_size, epochs=epochs, validation_split=0.1)
 
-    open("harf_siniflandirma_emnist_model.json", "w").write(model.to_json())  # modeli kaydetmek için kullanılır
-    model.save_weights("harf_sinif_emnist.h5")
+    return model
 
 
 def cnn1d_2layer():
@@ -112,43 +104,39 @@ def cnn1d_2layer():
 def cnn1d_3layer():
     input_shape = 784
     model = keras.Sequential([
-        layers.Conv1D(128, 8, padding='same', input_shape=(input_shape, 1)),
+        layers.Conv1D(64, 8, padding='same', input_shape=(input_shape, 1)),
         layers.MaxPool1D(2),
         layers.BatchNormalization(),
-        layers.Conv1D(64, 6, padding='same'),
+        layers.Conv1D(128, 7, padding='same'),
         layers.MaxPool1D(2),
         layers.Dropout(0.2),
         layers.BatchNormalization(),
-        layers.Conv1D(32, 4, padding='same'),
+        layers.Conv1D(128, 6, padding='same'),
         layers.MaxPool1D(2),
         layers.BatchNormalization(),
         layers.Flatten(),
-        layers.Dense(128, activation='relu'),
-        layers.Dense(128, activation='relu'),
+        layers.Dense(256, activation="relu"),
+        layers.Dense(128, activation="relu"),
         layers.Dropout(0.2),
-        layers.Dense(47, activation='softmax'),
+        layers.Dense(47, activation="softmax"),
     ])
-    print(model.summary())
-
     BATCH_SIZE = 128
-    EPOCH = 10
+    EPOCH = 20
     train = np.expand_dims(emnist_train_x, axis=2)
-    print(train.shape)
     model.compile(loss="mse", optimizer="adam", metrics=["accuracy"])
     model.fit(train, emnist_train_y, batch_size=BATCH_SIZE, epochs=EPOCH, validation_split=0.2)
+    return model
 
-
-def save_model(model, path):
-    pass
 
 # %%
+if __name__ == "__main__":
+    pass
+    # import Visualization
+    # import random
+    # for i in range(10):
+    #     array = emnist_train_x[random.randint(0, 10000)]
+    #     Visualization.show_image(array)
 
-# import Visualization
-# import random
-# for i in range(10):
-#     array = emnist_train_x[random.randint(0, 10000)]
-#     Visualization.show_image(array)
-
-# print(chr(map_to_letter(39)))
-# cnn2d()
-#cnn1d_3layer()
+    # print(chr(map_to_letter(39)))
+    # cnn2d()
+    # cnn1d_3layer()

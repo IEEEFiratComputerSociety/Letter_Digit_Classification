@@ -1,16 +1,15 @@
 import numpy as np
+from tensorflow.keras.models import model_from_json
+import HelperFunctions
 import cv2 as cv
 
-image_path = ''
+image_path = '20220429_205137.jpg'
+model_path = ''
 
 
-def image_preprocess(file):
-    pass
-    # return processed_image
-
-
-def load_model(file):
-    pass
-    # return model
+if __name__ == "__main__":
+    # model = load_model(model_path)
+    image = cv.imread(image_path)
+    # model_input_image = image_preproccess(image)
 
 
