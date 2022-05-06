@@ -55,3 +55,6 @@ def be_sure_2d(image_array):
         return image_array.reshape([28, 28])
     else:
         return image_array
+
+"""
+"""
