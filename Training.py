@@ -2,6 +2,7 @@ import numpy as np
 import pandas as pd
 from tensorflow import keras
 from tensorflow.keras import layers
+
 import HelperFunctions
 
 emnist_train = pd.read_csv('data/emnist-balanced-train.csv')
@@ -9,13 +10,11 @@ emnist_test = pd.read_csv('data/emnist-balanced-test.csv')
 
 print(f'Shape of emnist_train: {emnist_train.shape}\nShape of emnist_test: {emnist_test.shape}')
 
-
 # %%
 
 
-
-emnist_train_x, emnist_train_y = HelperFunctions.preprocess(emnist_train)
-emnist_test_x, emnist_test_y = HelperFunctions.preprocess(emnist_test)
+emnist_train_x, emnist_train_y = HelperFunctions.emnist_preprocess(emnist_train)
+emnist_test_x, emnist_test_y = HelperFunctions.emnist_preprocess(emnist_test)
 del emnist_train
 del emnist_test
 
@@ -117,13 +116,7 @@ def cnn1d_3layer():
 
 # %%
 if __name__ == "__main__":
-    pass
-    # import Visualization
-    # import random
-    # for i in range(10):
-    #     array = emnist_train_x[random.randint(0, 10000)]
-    #     Visualization.show_image(array)
-
-    # print(chr(map_to_letter(39)))
-    # cnn2d()
-    # cnn1d_3layer()
+    path = "models"
+    name = "2dmodel"
+    model = cnn2d()
+    HelperFunctions.save_model(model, path, name)
