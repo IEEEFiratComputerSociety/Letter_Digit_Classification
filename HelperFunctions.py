@@ -9,7 +9,9 @@ def map_to_letter(number):
 
 
 def save_model(model, path):
-    pass
+    result=path+"/"+name+".h5"
+    model.save(result)
+    print("Saved model to disk")
 
 
 def load_model(file):
