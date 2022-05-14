@@ -1,4 +1,5 @@
 import os
+from tensorflow.keras.models import load_model   
 
 import pandas as pd
 from tensorflow.keras.utils import to_categorical
@@ -16,8 +17,8 @@ def save_model(model, path, name):
 
 
 def load_model(file):
-    pass
-    # return model
+    savedModel=load_model(file)
+    return savedModel
 
 
 def image_preprocess(file):
