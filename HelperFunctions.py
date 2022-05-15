@@ -80,15 +80,13 @@ def draw_rectangle(image, prediction, box):
 
 
 def find_counters(image):
-    """
-    This function uses to find possible letter and digit areas.
-
-    :param image:
-    :return: list of (x, y, w, h)
-    """
-    # TODO: Verilen gorsele sirasiyla gray, blur, thrash, findCounters islemleri uygulanacak. Bulunan
-    #  counterlarin (x, y, w, h) degerleri bulunup liste olarak dondurulecek
-    #  https://docs.opencv.org/4.x/d4/d73/tutorial_py_contours_begin.html
-    pass
+    img = cv2.cvtColor(image, cv2.COLOR_BGR2GRAY)
+    img_blur = cv2.blur(img,ksize=(5,5))
+    ret,thresh_img = cv2.threshold(img_blur,thresh = 125,maxval=255,type=cv2.THRESH_BINARY)
+    contours, hierarch = cv2.findContours(thresh_img, cv2.RETR_CCOMP, cv2.CHAIN_APPROX_SIMPLE)
+    boxs = []
+    for i in range(len(contours)):
+        boxs.append(cv2.boundingRect(contours[i]))
+    return boxs
 
 
