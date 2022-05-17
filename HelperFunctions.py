@@ -63,6 +63,12 @@ def be_sure_2d(image_array):
 
 
 def draw_rectangle(image, prediction, box):
+    x,y,w,h=[box]
+    img = cv2.rectangle(image, (x, y), (x + w, y + h), (36,255,12), 1)
+    #cv2.putText(image, 'p', (x, y-10), cv2.FONT_HERSHEY_SIMPLEX, 0.9, (36,255,12), 2)
+    cv2.putText(image,'predict :{}'.format(prediction),(x,y-10),cv2.FONT_HERSHEY_SIMPLEX,0.55,(0,255,255),2)
+    
+
     """
     This function uses for draw rectangle around prediction
 
