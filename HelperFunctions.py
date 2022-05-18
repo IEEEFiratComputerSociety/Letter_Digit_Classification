@@ -1,7 +1,8 @@
 import os
-from tensorflow.keras.models import load_model   
 
+import cv2 as cv
 import pandas as pd
+from tensorflow.keras.models import model_from_json
 from tensorflow.keras.utils import to_categorical
 
 
@@ -11,19 +12,27 @@ def map_to_letter(number):
 
 
 def save_model(model, path, name):
-    result=path+"/"+name+".h5"
-    model.save(result)
+    h5 = path + "/" + name + ".h5"
+    json = path + "/" + name + ".json"
+    open(json, "w").write(model.to_json())  # modeli kaydetmek için kullanılır
+    model.save_weights(h5)
     print("Saving...")
 
 
-def load_model(file):
-    savedModel=load_model(file)
-    return savedModel
+def load_model(json_path, h5_path):
+    model = model_from_json(open(json_path, "r").read())
+    model.load_weights(h5_path)
+    return model
 
 
-def image_preprocess(file):
-    pass
-    # return processed_image
+def image_preprocess(image):
+    resized_image = cv.resize(image, (28, 28))
+    gray = cv.cvtColor(resized_image, cv.COLOR_BGR2GRAY)
+    _, image_threshold = cv.threshold(gray, 127, 255, cv.THRESH_BINARY_INV)
+    image_threshold = image_threshold.astype(float)
+    image_threshold /= 255
+    preprocessed_image = image_threshold.reshape((1, 28, 28, 1))
+    return preprocessed_image
 
 
 def emnist_preprocess(file):
@@ -80,13 +89,17 @@ def draw_rectangle(image, prediction, box):
 
 
 def find_counters(image):
-    img = cv2.cvtColor(image, cv2.COLOR_BGR2GRAY)
-    img_blur = cv2.blur(img,ksize=(5,5))
-    ret,thresh_img = cv2.threshold(img_blur,thresh = 125,maxval=255,type=cv2.THRESH_BINARY)
-    contours, hierarch = cv2.findContours(thresh_img, cv2.RETR_CCOMP, cv2.CHAIN_APPROX_SIMPLE)
-    boxs = []
+    """
+        This function uses to find possible letter and digit areas.
+
+        :param image:
+        :return: list of (x, y, w, h)
+    """
+    img = cv.cvtColor(image, cv.COLOR_BGR2GRAY)
+    img_blur = cv.blur(img, ksize=(5, 5))
+    ret, thresh_img = cv.threshold(img_blur, thresh=125, maxval=255, type=cv.THRESH_BINARY_INV)
+    contours, hierarch = cv.findContours(thresh_img, cv.RETR_CCOMP, cv.CHAIN_APPROX_SIMPLE)
+    boxes = []
     for i in range(len(contours)):
-        boxs.append(cv2.boundingRect(contours[i]))
-    return boxs
-
-
+        boxes.append(cv.boundingRect(contours[i]))
+    return boxes
