@@ -6,7 +6,6 @@ from tensorflow.keras.models import model_from_json
 from tensorflow.keras.utils import to_categorical
 
 
-
 def map_to_letter(number):
     maps = pd.read_csv('data/emnist-balanced-mapping.txt', delimiter=' ', header=None, index_col=0)
     return chr(maps.loc[number, 1])

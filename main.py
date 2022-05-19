@@ -1,7 +1,9 @@
 import argparse
 import sys
-import numpy as np
+
 import cv2 as cv
+import numpy as np
+
 import HelperFunctions
 
 model_weights = "models/2dmodel.h5"
@@ -43,7 +45,8 @@ elif args.m_image_path:
                 dim = (int(width * (28 / float(height))), 28)
                 thresh = cv.resize(thresh, dim, interpolation=cv.INTER_AREA)
 
-            padded = cv.copyMakeBorder(thresh, top=10, bottom=10, left=10, right=10, borderType=cv.BORDER_CONSTANT, value=0)
+            padded = cv.copyMakeBorder(thresh, top=10, bottom=10, left=10, right=10, borderType=cv.BORDER_CONSTANT,
+                                       value=0)
             padded = cv.resize(padded, (28, 28))
             padded = padded.astype("float32") / 255.0
             padded = padded.reshape((1, 28, 28, 1))
@@ -57,6 +60,5 @@ elif args.m_image_path:
 
 else:
     print('"-m" or "-s" should be used.', file=sys.stderr)
-
 
 cv.destroyAllWindows()

@@ -75,6 +75,8 @@ Every detected area passing the model, and the model predict the input. For ever
 
 <img src="data/readme_image/detection_out1.jpg">
 
+---
+
 ## The Model
 
 <img src="data/readme_image/model_architecture.png">
@@ -85,6 +87,8 @@ Accuracy of 1dmodel is worse then 2dmodel. Probobly, 1dmodel can preform better 
 The project is using 2dmodel because of accuracy issue, and lesser image process steps.
 
 You can find two of them in models folder.
+
+---
 
 ## How to use?
 
