@@ -23,13 +23,16 @@ and we applied what is learned.
 The project have two steps.
 
 1) Step One
-    * In this step, main purpose is to classify single letter in an input image.
-    * This step will be bases of other steps.
+    * In this step, main purpose is to classify single letter or digit in the input image.
+    * The model is trained in this step.
 
-<!-- PUT RELATED PHOTO --->
+<img src="data/readme_image/0_prediction.jpg">
 
 2) Step Two
-    *
+    * In this step, main purpose is detect multiple letter and digit in the input image.
+    * The model, that was trained previous step, is used for classifying the detections 
+
+<img src="data/readme_image/detection_out.jpg" height="700" width="1000">
 
 ---
 
@@ -62,4 +65,44 @@ Prediction bar plots are helped us for more clear observation.
 | <img src="data/digits/5.jpg" height="100" width="100"> | <img src="data/digits/6.jpg" height="100" width="100"> | <img src="data/digits/7.jpg" height="100" width="100"> | <img src="data/digits/8.jpg" height="100" width="100"> | <img src="data/digits/9.jpg" height="100" width="100"> |
 |       <img src="data/prediction_bar_plot/5.png">       |       <img src="data/prediction_bar_plot/6.png">       |       <img src="data/prediction_bar_plot/7.png">       |       <img src="data/prediction_bar_plot/8.png">       |       <img src="data/prediction_bar_plot/9.png">       |
 
-### 2) Step Two: Classify Multiple letter in the image
+### 2) Step Two: Classify Multiple letter in an image
+
+If we want to classify multiple areas in an image, we should find the areas. Because we want to use the model.
+We used image processing technique for find the areas. You can use just a model that is trained for this purpose without image proccesing techniques, 
+but you cannot use only image classification model for this. For that reason, we used image processing techniques in this step.
+<br>
+Every detected area passing the model, and the model predict the input. For every area, a rectangle and the prediction letter is drawn.
+
+<img src="data/readme_image/detection_out1.jpg">
+
+## The Model
+
+<img src="data/readme_image/model_architecture.png">
+
+We trained two model. One of them is using 1D convolution layers(1dmodel), other is using 2D convolution layers(2dmodel).
+
+Accuracy of 1dmodel is worse then 2dmodel. Probobly, 1dmodel can preform better with better hyperparameter tuning.
+The project is using 2dmodel because of accuracy issue, and lesser image process steps.
+
+You can find two of them in models folder.
+
+## How to use?
+
+First of all, you should clone the repository.
+After that, you should install requirements. You can use the CLI commend.
+```shell
+pip install -r requirements.txt
+```
+
+Now you can run the project
+
+### Single letter or digit
+```shell
+python main.py -s <image_path>
+```
+
+### Multiple letter or digit
+```shell
+python main.py -m <image_path>
+```
+

@@ -6,6 +6,7 @@ from tensorflow.keras.models import model_from_json
 from tensorflow.keras.utils import to_categorical
 
 
+
 def map_to_letter(number):
     maps = pd.read_csv('data/emnist-balanced-mapping.txt', delimiter=' ', header=None, index_col=0)
     return chr(maps.loc[number, 1])
@@ -72,12 +73,6 @@ def be_sure_2d(image_array):
 
 
 def draw_rectangle(image, prediction, box):
-    x,y,w,h=[box]
-    img = cv2.rectangle(image, (x, y), (x + w, y + h), (36,255,12), 1)
-    #cv2.putText(image, 'p', (x, y-10), cv2.FONT_HERSHEY_SIMPLEX, 0.9, (36,255,12), 2)
-    cv2.putText(image,'predict :{}'.format(prediction),(x,y-10),cv2.FONT_HERSHEY_SIMPLEX,0.55,(0,255,255),2)
-    
-
     """
     This function uses for draw rectangle around prediction
 
@@ -88,10 +83,9 @@ def draw_rectangle(image, prediction, box):
     :type box: tuple
     :return:
     """
-    # TODO: verilen gorsel(image) uzerine box'da(x, y, w, h) bulunan kare cizilecek ve karenin sol ust kosesine
-    #  prediction da bulunan o karenin char degeri yazilacak.
-    #  https://docs.opencv.org/4.x/dc/da5/tutorial_py_drawing_functions.html
-    pass
+    x, y, w, h = box
+    cv.rectangle(image, (x, y), (x + w, y + h), (36, 255, 12), 2)
+    cv.putText(image, prediction, (x, y - 10), cv.FONT_HERSHEY_SIMPLEX, 1.55, (0, 255, 255), 2)
 
 
 def find_counters(image):
@@ -102,9 +96,9 @@ def find_counters(image):
         :return: list of (x, y, w, h)
     """
     img = cv.cvtColor(image, cv.COLOR_BGR2GRAY)
-    img_blur = cv.blur(img, ksize=(5, 5))
+    img_blur = cv.GaussianBlur(img, (7, 7), 0)
     ret, thresh_img = cv.threshold(img_blur, thresh=125, maxval=255, type=cv.THRESH_BINARY_INV)
-    contours, hierarch = cv.findContours(thresh_img, cv.RETR_CCOMP, cv.CHAIN_APPROX_SIMPLE)
+    contours, hierarch = cv.findContours(thresh_img, cv.RETR_EXTERNAL, cv.CHAIN_APPROX_SIMPLE)
     boxes = []
     for i in range(len(contours)):
         boxes.append(cv.boundingRect(contours[i]))
