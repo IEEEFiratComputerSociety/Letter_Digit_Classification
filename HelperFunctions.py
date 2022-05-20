@@ -51,8 +51,16 @@ def emnist_preprocess(file):
     return X, Y
 
 
-def convert_1d_to_2d():
-    pass
+def convert_1d_to_2d(data):
+    file_x = []
+    for i in range(data.shape[0]):
+        a = np.resize(data[i], (28, 28))
+        a = np.transpose(a)
+        file_x.append(a)
+        
+    file_x = np.array(file_x)
+    file_x = file_x.reshape((file_x.shape[0], 28, 28, 1))
+    return file_x
 
 
 def be_sure_file_exist(path):
