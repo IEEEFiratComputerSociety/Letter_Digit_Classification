@@ -77,15 +77,7 @@ def cnn2d():
     model.fit(x_train, emnist_train_y, batch_size=batch_size, epochs=epochs, validation_split=0.1)
 
     return model
-
-
-def cnn1d_2layer():
-    """
-
-    :return:
-    """
-    pass
-
+    
 
 def cnn1d_3layer():
     input_shape = 784
