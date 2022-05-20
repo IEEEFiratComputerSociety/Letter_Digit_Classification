@@ -25,24 +25,8 @@ print(f'{emnist_train_x.shape}\n{emnist_train_y.shape}\n{emnist_test_x.shape}\n{
 
 
 def cnn2d():
-    train_X = []
-    test_X = []
-
-    for i in range(emnist_train_x.shape[0]):
-        a = np.resize(emnist_train_x[i], (28, 28))
-        a = np.transpose(a)
-        train_X.append(a)
-
-    for i in range(emnist_test_x.shape[0]):
-        a = np.resize(emnist_test_x[i], (28, 28))
-        a = np.transpose(a)
-        test_X.append(a)
-
-    x_train = np.array(train_X)
-    x_test = np.array(test_X)
-
-    x_train = x_train.reshape((x_train.shape[0], 28, 28, 1))
-    x_test = x_test.reshape((x_test.shape[0], 28, 28, 1))
+    
+    x_train = HelperFunctions.convert_1d_to_2d(emnist_train_x)
 
     input_shape = (28, 28, 1)
 
@@ -67,7 +51,6 @@ def cnn2d():
             layers.Dense(47, activation="softmax"),
         ]
     )
-    model.summary()
 
     batch_size = 128
     epochs = 10
