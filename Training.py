@@ -76,7 +76,7 @@ def cnn1d_3layer():
     ])
     
     model.compile(loss="mse", optimizer="adam", metrics=["accuracy"])
-    model.fit(train, emnist_train_y, batch_size=BATCH_SIZE, epochs=EPOCH, validation_split=0.2)
+    model.fit(train, emnist_train_y, batch_size=BATCH_SIZE, epochs=EPOCHS, validation_split=0.2)
     return model
 
 
