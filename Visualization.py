@@ -25,18 +25,10 @@ def show_image(image_array, save=False, save_path='data/csv_to_image', name_of_i
 
 
 def conf_matrix(model, x_test, y_true):
-    test_X = []
-
-    for i in range(x_test.shape[0]):
-        a = np.resize(x_test[i], (28, 28))
-        a = np.transpose(a)
-        test_X.append(a)
-
-    test_X = np.array(test_X)
-    test_X = test_X.reshape((test_X.shape[0], 28, 28, 1))
+    test_x = HelperFunctions.convert_1d_to_2d(x_test)
 
     # test setinden tahmin et
-    x_pred = model.predict(test_X)
+    x_pred = model.predict(test_x)
 
     # tahmin edilen veriyi çevir
     x_pred_class = np.argmax(x_pred, axis=1)
