@@ -36,11 +36,11 @@ def image_preprocess(image):
 
 
 def emnist_preprocess(file):
-    X = file.iloc[:, 1:].values
-    Y = file.iloc[:, :1].values
-    Y = to_categorical(Y, num_classes=47)
-    X = X / 255.0
-    return X, Y
+    x = file.iloc[:, 1:].values
+    y = file.iloc[:, :1].values
+    y = to_categorical(y, num_classes=47)
+    x = x / 255.0
+    return x, y
 
 
 def convert_1d_to_2d(data):
