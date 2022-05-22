@@ -1,9 +1,7 @@
 import argparse
 import sys
-
 import cv2 as cv
 import numpy as np
-
 import HelperFunctions
 
 model_weights = "models/2dmodel.h5"

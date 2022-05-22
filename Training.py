@@ -2,7 +2,6 @@ import numpy as np
 import pandas as pd
 from tensorflow import keras
 from tensorflow.keras import layers
-
 import HelperFunctions
 
 emnist_train = pd.read_csv('data/emnist-balanced-train.csv')
@@ -22,30 +21,12 @@ print(f'{emnist_train_x.shape}\n{emnist_train_y.shape}\n{emnist_test_x.shape}\n{
 
 
 # %%
-
+BATCH_SIZE = 128
+EPOCHS = 20
 
 def cnn2d():
-    train_X = []
-    test_X = []
-
-    for i in range(emnist_train_x.shape[0]):
-        a = np.resize(emnist_train_x[i], (28, 28))
-        a = np.transpose(a)
-        train_X.append(a)
-
-    for i in range(emnist_test_x.shape[0]):
-        a = np.resize(emnist_test_x[i], (28, 28))
-        a = np.transpose(a)
-        test_X.append(a)
-
-    x_train = np.array(train_X)
-    x_test = np.array(test_X)
-
-    x_train = x_train.reshape((x_train.shape[0], 28, 28, 1))
-    x_test = x_test.reshape((x_test.shape[0], 28, 28, 1))
-
+    x_train = HelperFunctions.convert_1d_to_2d(emnist_train_x)
     input_shape = (28, 28, 1)
-
     model = keras.Sequential(
         [
             keras.Input(shape=input_shape),
@@ -67,28 +48,15 @@ def cnn2d():
             layers.Dense(47, activation="softmax"),
         ]
     )
-    model.summary()
-
-    batch_size = 128
-    epochs = 10
 
     model.compile(loss="categorical_crossentropy", optimizer="adam", metrics=["accuracy"])
-
-    model.fit(x_train, emnist_train_y, batch_size=batch_size, epochs=epochs, validation_split=0.1)
-
+    model.fit(x_train, emnist_train_y, batch_size=BATCH_SIZE, epochs=EPOCHS, validation_split=0.1)
     return model
-
-
-def cnn1d_2layer():
-    """
-
-    :return:
-    """
-    pass
-
+    
 
 def cnn1d_3layer():
     input_shape = 784
+    train = np.expand_dims(emnist_train_x, axis=2)
     model = keras.Sequential([
         layers.Conv1D(64, 8, padding='same', input_shape=(input_shape, 1)),
         layers.MaxPool1D(2),
@@ -106,9 +74,7 @@ def cnn1d_3layer():
         layers.Dropout(0.2),
         layers.Dense(47, activation="softmax"),
     ])
-    BATCH_SIZE = 128
-    EPOCH = 20
-    train = np.expand_dims(emnist_train_x, axis=2)
+    
     model.compile(loss="mse", optimizer="adam", metrics=["accuracy"])
     model.fit(train, emnist_train_y, batch_size=BATCH_SIZE, epochs=EPOCH, validation_split=0.2)
     return model

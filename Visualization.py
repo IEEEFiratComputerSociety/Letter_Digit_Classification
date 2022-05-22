@@ -10,7 +10,6 @@ import HelperFunctions
 
 def show_image(image_array, save=False, save_path='data/csv_to_image', name_of_image='show_image', image_type='.png'):
     checked_array = HelperFunctions.be_sure_2d(image_array)
-    # checked_array = checked_array * 255
     checked_array = checked_array.astype(int)
     checked_array = np.transpose(checked_array, (1, 0))
     plt.subplot()
@@ -26,9 +25,6 @@ def show_image(image_array, save=False, save_path='data/csv_to_image', name_of_i
 
 
 def conf_matrix(model, x_test, y_true):
-    '''
-    Eğitilmiş modeli parametre olarak veriyoruz
-    '''
     test_X = []
 
     for i in range(x_test.shape[0]):
@@ -37,7 +33,6 @@ def conf_matrix(model, x_test, y_true):
         test_X.append(a)
 
     test_X = np.array(test_X)
-
     test_X = test_X.reshape((test_X.shape[0], 28, 28, 1))
 
     # test setinden tahmin et
@@ -46,10 +41,8 @@ def conf_matrix(model, x_test, y_true):
     # tahmin edilen veriyi çevir
     x_pred_class = np.argmax(x_pred, axis=1)
 
-
     # karışıklık matrisi hesaplama
     confusion_mtx = confusion_matrix(y_true, x_pred_class)
-
     labels = list(map(HelperFunctions.map_to_letter, list(range(47))))
 
     # karşıklık matrisi çizdir
@@ -60,9 +53,6 @@ def conf_matrix(model, x_test, y_true):
     plt.title("confusion matrix")
     plt.show()
 
-
-def training_plot():
-    pass
 
 
 def prediction_bar_plot(prediction_data, save=False, save_path='data/prediction_bar_plot', name_of_plot='prediction_plot', image_type='.png'):

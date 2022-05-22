@@ -1,5 +1,4 @@
 import os
-
 import cv2 as cv
 import pandas as pd
 from tensorflow.keras.models import model_from_json
@@ -14,7 +13,7 @@ def map_to_letter(number):
 def save_model(model, path, name):
     h5 = path + "/" + name + ".h5"
     json = path + "/" + name + ".json"
-    open(json, "w").write(model.to_json())  # modeli kaydetmek için kullanılır
+    open(json, "w").write(model.to_json())
     model.save_weights(h5)
     print("Saving...")
 
@@ -36,23 +35,23 @@ def image_preprocess(image):
 
 
 def emnist_preprocess(file):
-    # girdi olarak bir DataFrame alır
-
-    # bağımlı ve bağımsız değişkenleri ayırıyoruz
     X = file.iloc[:, 1:].values
     Y = file.iloc[:, :1].values
-
-    # to_categorical ile her sınıf için ayrı sınıflandırma sütunu oluşturuyoruz
     Y = to_categorical(Y, num_classes=47)
-
-    # model için değerleri normalize ediyoruz
     X = X / 255.0
-
     return X, Y
 
 
-def convert_1d_to_2d():
-    pass
+def convert_1d_to_2d(data):
+    data2d = []
+    for i in range(data.shape[0]):
+        temp = np.resize(data[i], (28, 28))
+        temp = np.transpose(temp)
+        data2d.append(temp)
+        
+    data2d = np.array(data2d)
+    data2d = data2d.reshape((data2d.shape[0], 28, 28, 1))
+    return data2d
 
 
 def be_sure_file_exist(path):
