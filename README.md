@@ -1,4 +1,4 @@
-In this section, as the IEEE Firat Image Processing Team, We have learned image processing and made a project.
+In this section, as the IEEE Firat Image Processing Team, We have learned image processing and deep learning. We used them in the project.
 
 # Letter and Digit Detection
 
@@ -42,7 +42,7 @@ This step is main structure of the project. Because, The model was trained in th
 <br>
 First of all, The model was needed data for training. Data collection and preparing are time consuming process, and
 require different skills. For those reasons, we as a team have decided to use a ready dataset. We used balanced emnist
-data set. there are digits and letters in the dataset.
+data set. There are digits and letters in the dataset.
 
 ![](data/readme_image/myplot.png)
 
