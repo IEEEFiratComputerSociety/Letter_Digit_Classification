@@ -1,4 +1,4 @@
-In this section, as the IEEE Firat Image Processing Team, We have learned image processing and deep learning. We used them in the project.
+In this section, as the IEEE Firat Computer Society Image Processing Team, We have learned image processing and deep learning. We used them in the project.
 
 # Letter and Digit Detection
 
@@ -109,4 +109,4 @@ python main.py -s <image_path>
 ```shell
 python main.py -m <image_path>
 ```
-
+Developed by the Computer Society Image Processing Team.
